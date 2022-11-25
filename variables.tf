@@ -104,12 +104,7 @@ variable "db_instance_class" {
 variable "multi_az" {
   default = false
 }
-variable "database_name"{
-  default =""
-}
-variable "sandbox_database_name" {
-  default = ""
-}
+
 variable "database_username" {
   default = ""
 }
@@ -123,10 +118,7 @@ variable "pitstop_db_username" {
   default = "pistopuser"
 }
 variable "log_group" {}
-variable "admin_host" {}
-variable "highway_host" {}
-variable "key_host" {}
-variable "attachment_proxy_url" {}
+
 variable "bitbucket_connection_arn" {}
 variable "aws_account" {}
 variable "route53_hosted_zone_id" {
@@ -139,54 +131,15 @@ variable "pitstop_license_key" {
   description = "pitstop_license_key to be applied to the applicaton"
 }
 
-variable "secrets_manager_access" {
-    description = "It defines the ACCESS_FROM_SECRET_MANAGER"
-    default = true
-}
 
-variable "sensitive_keys" {
-    description = "It defines the number of secrets in the secret manager"
-    default = "TYPEORM_PASSWORD,PITSTOP_LICENSE_KEY"
-}
 variable "ecr_repo_name" {
 
 }
-variable "kms_key_id" {
-}
-variable "waf_arn" {
-  default = ""
-}
-variable "sandbox_pitstop_license_key" {
-  default = ""
-}
-variable "sandbox_database_password" {
-  
-}
-variable "sandbox_database_username" {
-  
-}
-variable "sandbox_container_port" {
-  default = "4001"
-  
-}
+
 variable "pitstop_log_group" {
   
 }
-variable "sandbox_pitstop_log_group" {
-  
-}
-variable "sandbox_admin_host" {
-  
-}
-variable "sandbox_key_host" {
-  
-}
-variable "sandbox_highway_host" {
-  
-}
-variable "db_engine_version" {
-  
-}
+
 variable "alb_access_log_bucket" {
 
 }
