@@ -117,7 +117,7 @@ variable "pitstop_db_password" {
 variable "pitstop_db_username" {
   default = "pistopuser"
 }
-variable "log_group" {}
+#variable "log_group" {}
 
 variable "bitbucket_connection_arn" {}
 variable "aws_account" {}
@@ -136,10 +136,6 @@ variable "ecr_repo_name" {
 
 }
 
-variable "pitstop_log_group" {
-  
-}
 
-variable "alb_access_log_bucket" {
 
-}
+
