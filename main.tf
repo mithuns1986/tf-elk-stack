@@ -10,15 +10,14 @@ terraform {
 }
 
 resource "aws_s3_bucket" "main" {
-  bucket = var.pitstop_name == "one" ?  "${lower(var.environment)}-${var.pitstop_name}-bk" : "${lower(var.environment)}-${var.pitstop_name}-bucket"
+  bucket = var.environment == "one" ?  "${lower(var.environment)}-elk-bk" : "${lower(var.environment)}-elk-bucket"
   #acl    = "private"
   #enable_s3_public_access_block = false
 
   tags = {
-    Name        = "${lower(var.environment)}-${var.pitstop_name}-bucket"
+    Name        = "${lower(var.environment)}-elk-bucket"
     Environment = "${var.environment}"
-    Participant = "${var.pitstop_name}"
-
+    
   }
 }
 resource "aws_s3_bucket_acl" "s3acl" {
