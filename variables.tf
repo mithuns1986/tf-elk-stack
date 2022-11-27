@@ -9,9 +9,9 @@ variable "aws_region" {
   default     = "ap-southeast-1"
 }
 
-variable "pitstop_name" {
-  description = "Name of the Pitstop"
-}
+#variable "pitstop_name" {
+#  description = "Name of the Pitstop"
+#}
 variable "availability_zones" {
   description = "a comma-separated list of availability zones, defaults to all AZ of the region, if set to something other than the defaults, both private_subnets and public_subnets have to be defined as well"
   default     = ["ap-southeast-1a", "ap-southeast-1b"]
@@ -127,9 +127,9 @@ variable "route53_hosted_zone_id" {
 variable "ecr_name" {
 
 }
-variable "pitstop_license_key" {
-  description = "pitstop_license_key to be applied to the applicaton"
-}
+#variable "pitstop_license_key" {
+# description = "pitstop_license_key to be applied to the applicaton"
+#}
 
 
 variable "ecr_repo_name" {
