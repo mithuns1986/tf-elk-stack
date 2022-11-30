@@ -2,7 +2,7 @@ provider "aws" {
   region  = var.aws_region
   version = "~> 4.5.0"
 }
-
+#dummy comit
 terraform {
   backend "s3" {
     region = "ap-southeast-1"
