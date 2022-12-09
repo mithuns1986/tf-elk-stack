@@ -37,7 +37,7 @@ module "iam_policy" {
 module "es" {
   source                      = "./modules/es"
   environment                 = var.environment
-  cluster_id                  = var.cluster_id
+  cluster_id                  = aws_ecs_cluster.main.id
   region                      = var.aws_region
   subnets                     = var.private_subnets
   task_execution_role_arn     = module.iam_policy.task_execution_role_arn
@@ -72,7 +72,7 @@ module "es" {
 module "kibana" {
   source                      = "./modules/kibana"
   environment                 = var.environment
-  cluster_id                  = var.cluster_id
+  cluster_id                  = aws_ecs_cluster.main.id
   region                      = var.aws_region
   subnets                     = var.private_subnets
   task_execution_role_arn     = module.iam_policy.task_execution_role_arn
@@ -99,7 +99,7 @@ module "kibana" {
 module "logstash" {
   source                      = "./modules/logstash"
   environment                 = var.environment
-  cluster_id                  = var.cluster_id
+  cluster_id                  = aws_ecs_cluster.main.id
   region                      = var.aws_region
   subnets                     = var.private_subnets
   task_execution_role_arn     = module.iam_policy.task_execution_role_arn
