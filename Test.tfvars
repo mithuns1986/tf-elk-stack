@@ -1,10 +1,10 @@
 environment            = "Test"
-vpc_id                 = "vpc-024d777bf648d9edb"
+vpc_id                 = "vpc-0e21ee9348997abe4"
 availability_zones     = ["ap-southeast-1a", "ap-southeast-1b"]
-private_subnets        = ["subnet-0189aca4fbbbe5f98", "subnet-02ccae9265069fb30"]
-public_subnets         = ["subnet-0b73326f59947dac8", "subnet-05e44751eaa62e4ca"]
+private_subnets        = ["subnet-02c34d808cc6030b8", "subnet-0e7609d98a69bde2d"]
+public_subnets         = ["subnet-045960fe05e0d8d68", "subnet-0045c492bc6ae7655"]
 service_desired_count  = 1
-tsl_certificate_arn    = "arn:aws:acm:ap-southeast-1:006195751431:certificate/82ef7627-f448-4dc5-81e8-0623ed1514b9"
-route53_hosted_zone_id = "Z060289833XOHIDTFD6V9"
+tsl_certificate_arn    = "arn:aws:acm:ap-southeast-1:818682305270:certificate/5e0e8543-ff33-4827-abe3-8c8ebd0de9e4"
+route53_hosted_zone_id = "Z028620724U826476TS9W"
 container_image        = "818682305270.dkr.ecr.ap-southeast-1.amazonaws.com/dev-elk"
 log_group              = "test-elk"
