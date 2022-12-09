@@ -15,7 +15,7 @@ resource "aws_ecs_cluster" "main" {
   }
 }
 module "security_groups" {
-  source = "./modules/security_groups"
+  source = "./modules/security-groups"
   vpc_id = var.vpc_id
 }
 module "alb" {
