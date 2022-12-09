@@ -14,6 +14,10 @@ resource "aws_ecs_cluster" "main" {
     Environment = var.environment
   }
 }
+module "security_groups" {
+  source = "./modules/security_groups"
+  vpc_id = var.vpc_id
+}
 module "alb" {
   source              = "./modules/alb"
   alb_name            = var.environment
