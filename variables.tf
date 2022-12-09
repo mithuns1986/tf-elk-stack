@@ -108,7 +108,7 @@ variable "route53_hosted_zone_id" {
 variable "kibana_container_port" {
   default = "5601"
 }
-variable "ec_container_port" {
+variable "es_container_port" {
   default = "9200"
 }
 variable "logstah_container_port" {
