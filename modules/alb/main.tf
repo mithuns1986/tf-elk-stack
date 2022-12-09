@@ -121,7 +121,7 @@ resource "aws_alb_listener" "https" {
 }
 resource "aws_lb_listener_rule" "main" {
   listener_arn = aws_alb_listener.https.arn
-  #priority     = var.lb_listener_priority
+  priority     = "10"
 
   action {
     type             = "forward"
@@ -136,7 +136,7 @@ resource "aws_lb_listener_rule" "main" {
 }
 resource "aws_lb_listener_rule" "kibana" {
   listener_arn = aws_alb_listener.https.arn
-  #priority     = var.lb_listener_priority
+  priority     = "20"
 
   action {
     type             = "forward"
@@ -151,7 +151,7 @@ resource "aws_lb_listener_rule" "kibana" {
 }
 resource "aws_lb_listener_rule" "logstash" {
   listener_arn = aws_alb_listener.https.arn
-  #priority     = var.lb_listener_priority
+  priority     = "30"
 
   action {
     type             = "forward"
