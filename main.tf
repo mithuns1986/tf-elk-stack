@@ -22,7 +22,7 @@ module "alb" {
   environment         = var.environment
   alb_security_groups = [module.security_groups.alb]
   alb_tls_cert_arn    = var.tsl_certificate_arn
-  doamin_name         = var.doamin_name
+  domain_name         = var.domain_name
 }
 
 module "iam_policy" {
