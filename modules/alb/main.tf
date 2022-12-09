@@ -149,7 +149,7 @@ resource "aws_lb_listener_rule" "kibana" {
     }
   }
 }
-resource "aws_lb_listener_rule" "main" {
+resource "aws_lb_listener_rule" "logstash" {
   listener_arn = aws_alb_listener.https.arn
   #priority     = var.lb_listener_priority
 
