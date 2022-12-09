@@ -56,3 +56,6 @@ variable "container_environment" {
 variable "container_port_mappings" {
 
 }
+variable "cluster_name" {
+  default = ""
+}
