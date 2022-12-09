@@ -9,7 +9,7 @@ resource "aws_ecs_task_definition" "main" {
   #task_role_arn            = aws_iam_role.ecs_task_role.arn
   task_role_arn = var.ecs_task_role_arn
   container_definitions = jsonencode([{
-    name         = "elastic-search"
+    name         = "elasticsearch"
     image        = "${var.container_image}:elasticsearch"
     essential    = true
     environment  = var.container_environment
