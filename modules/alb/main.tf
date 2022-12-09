@@ -134,6 +134,36 @@ resource "aws_lb_listener_rule" "main" {
     }
   }
 }
+resource "aws_lb_listener_rule" "kibana" {
+  listener_arn = aws_alb_listener.https.arn
+  #priority     = var.lb_listener_priority
+
+  action {
+    type             = "forward"
+    target_group_arn = aws_alb_target_group.kibana.arn
+  }
+
+  condition {
+    host_header {
+      values = ["kibana"]
+    }
+  }
+}
+resource "aws_lb_listener_rule" "main" {
+  listener_arn = aws_alb_listener.https.arn
+  #priority     = var.lb_listener_priority
+
+  action {
+    type             = "forward"
+    target_group_arn = aws_alb_target_group.logstash.arn
+  }
+
+  condition {
+    host_header {
+      values = ["logstash"]
+    }
+  }
+}
 output "aws_alb_listner_arn" {
   value = aws_alb_listener.https.arn
 }
