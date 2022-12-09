@@ -40,10 +40,7 @@ resource "aws_iam_role_policy_attachment" "ecs-task-execution-role-policy-attach
   role       = aws_iam_role.ecs_task_execution_role.name
   policy_arn = "arn:aws:iam::aws:policy/service-role/AmazonECSTaskExecutionRolePolicy"
 }
-resource "aws_iam_role_policy_attachment" "ecs-task-role-policy-attachment" {
-  role       = aws_iam_role.ecs_task_role.name
-  policy_arn = aws_iam_policy.example.arn
-}
+#
 output "task_execution_role_arn" {
   value = aws_iam_role.ecs_task_execution_role.arn
 }

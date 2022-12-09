@@ -33,7 +33,7 @@ resource "aws_ecs_task_definition" "main" {
 resource "aws_ecs_service" "main" {
   name                               = "${var.environment}-logstash-service"
   cluster                            = var.cluster_id
-  task_definition                    = aws_ecs_task_definition.logstash.arn
+  task_definition                    = aws_ecs_task_definition.main.arn
   desired_count                      = var.service_desired_count
   deployment_minimum_healthy_percent = 100
   deployment_maximum_percent         = 200

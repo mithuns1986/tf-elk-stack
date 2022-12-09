@@ -130,7 +130,7 @@ resource "aws_lb_listener_rule" "main" {
 
   condition {
     host_header {
-      values = ["es.${var.doamin_name}"]
+      values = ["es.${var.domain_name}"]
     }
   }
 }
