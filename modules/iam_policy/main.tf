@@ -1,8 +1,3 @@
-resource "aws_iam_policy" "example" {
-  name   = "${var.environment}-elk-ecsTaskPolicy"
-  path   = "/"
-  policy = data.aws_iam_policy_document.example.json
-}
 #.......
 resource "aws_iam_role" "ecs_task_execution_role" {
   name = "${var.environment}-elk-ecsTaskExecutionRole"
