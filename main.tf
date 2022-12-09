@@ -66,7 +66,7 @@ module "es" {
   container_image = var.container_image
 }
 module "kibana" {
-  source                      = "./modules/kibaba"
+  source                      = "./modules/kibana"
   environment                 = var.environment
   region                      = var.aws_region
   subnets                     = var.private_subnets
