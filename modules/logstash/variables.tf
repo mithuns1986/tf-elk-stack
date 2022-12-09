@@ -1,9 +1,5 @@
-variable "ecs_name" {
-  description = "the name of your stack, e.g. \"demo\""
-}
-variable "name" {}
-variable "Participant" {
-  default = "SgTraDex"
+variable "cluster_id" {
+  default = ""
 }
 variable "task_execution_role_arn" {}
 variable "ecs_task_role_arn" {}
@@ -11,7 +7,7 @@ variable "ecs_task_role_arn" {}
 variable "environment" {
   description = "the name of your environment, e.g. \"demo\""
 }
-variable "log_group"{
+variable "log_group" {
   description = "AWS Log group"
 }
 
@@ -53,18 +49,9 @@ variable "service_desired_count" {
 
 variable "container_environment" {
   description = "The container environmnent variables"
-  type        = list
+  type        = list(any)
 }
 
-variable "container_port_mappings"{
+variable "container_port_mappings" {
 
 }
-variable "product" {
-  description= "Product name"
-  default = "CDI"
-}
-variable "costcenter"{
-  description = "AWS Cost center"
-  default = "12345"
-}
-

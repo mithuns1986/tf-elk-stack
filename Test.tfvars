@@ -8,3 +8,4 @@ tsl_certificate_arn    = "arn:aws:acm:ap-southeast-1:006195751431:certificate/82
 route53_hosted_zone_id = "Z060289833XOHIDTFD6V9"
 container_image        = "818682305270.dkr.ecr.ap-southeast-1.amazonaws.com/dev-elk"
 log_group              = "test-elk"
+cluster_id             = "Test-CDI-ECScluster "
