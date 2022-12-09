@@ -114,3 +114,6 @@ variable "ec_container_port" {
 variable "logstah_container_port" {
   default = "8080"
 }
+variable "doamin_name" {
+  default = "elk.test.afa-cdi.com"
+}

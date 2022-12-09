@@ -15,16 +15,14 @@ resource "aws_ecs_cluster" "main" {
   }
 }
 module "alb" {
-  source                 = "./modules/alb"
-  alb_name               = var.environment
-  vpc_id                 = var.vpc_id
-  subnets                = var.public_subnets
-  environment            = var.environment
-  alb_security_groups    = [module.security_groups.alb]
-  alb_tls_cert_arn       = var.tsl_certificate_arn
-  health_check_path      = var.health_check_path
-  route53_hosted_zone_id = var.route53_hosted_zone_id
-  waf_arn                = var.waf_arn
+  source              = "./modules/alb"
+  alb_name            = var.environment
+  vpc_id              = var.vpc_id
+  subnets             = var.public_subnets
+  environment         = var.environment
+  alb_security_groups = [module.security_groups.alb]
+  alb_tls_cert_arn    = var.tsl_certificate_arn
+  doamin_name         = var.doamin_name
 }
 
 module "iam_policy" {
