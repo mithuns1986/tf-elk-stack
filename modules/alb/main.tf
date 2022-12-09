@@ -134,8 +134,6 @@ resource "aws_lb_listener_rule" "main" {
     }
   }
 }
-}
-
 output "aws_alb_listner_arn" {
   value = aws_alb_listener.https.arn
 }
