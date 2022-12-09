@@ -7,3 +7,4 @@ service_desired_count  = 1
 tsl_certificate_arn    = "arn:aws:acm:ap-southeast-1:006195751431:certificate/82ef7627-f448-4dc5-81e8-0623ed1514b9"
 route53_hosted_zone_id = "Z060289833XOHIDTFD6V9"
 container_image        = "818682305270.dkr.ecr.ap-southeast-1.amazonaws.com/dev-elk"
+log_group              = "test-elk"

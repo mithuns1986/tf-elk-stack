@@ -117,3 +117,6 @@ variable "logstah_container_port" {
 variable "doamin_name" {
   default = "elk.test.afa-cdi.com"
 }
+variable "log_group" {
+  default = ""
+}

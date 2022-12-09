@@ -44,6 +44,7 @@ module "es" {
   container_memory            = "2048"
   service_desired_count       = var.service_desired_count
   aws_alb_target_group_arn    = module.alb.es_aws_alb_target_group_arn
+  log_group                   = var.log_group
   container_environment = [
     { name  = "DISCOVERY_TYPE",
       value = "single-node"
@@ -77,6 +78,7 @@ module "kibana" {
   container_memory            = "2048"
   service_desired_count       = var.service_desired_count
   aws_alb_target_group_arn    = module.alb.kibana_aws_alb_target_group_arn
+  log_group                   = var.log_group
   container_environment = [
     { name  = "KIBANA_SYSTEM_PASSWORD",
       value = "SGTkibana123!"
@@ -102,6 +104,7 @@ module "logstash" {
   container_memory            = "2048"
   service_desired_count       = var.service_desired_count
   aws_alb_target_group_arn    = module.alb.logstash_aws_alb_target_group_arn
+  log_group                   = var.log_group
   container_environment = [
     { name  = "LOGSTASH_ELASTICSEARCH_HOST	",
       value = "http://elk.sgtradex.io:9200"
