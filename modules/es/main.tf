@@ -30,7 +30,7 @@ resource "aws_ecs_task_definition" "main" {
   }
 }
 
-resource "aws_ecs_service" "main" {
+resource "aws_ecs_service" "ec" {
   name                               = "${var.environment}-es-service"
   cluster                            = var.cluster_id
   task_definition                    = aws_ecs_task_definition.es.arn

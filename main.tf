@@ -105,7 +105,7 @@ module "logstash" {
   task_execution_role_arn     = module.iam_policy.task_execution_role_arn
   ecs_task_role_arn           = module.iam_policy.ecs_task_role_arn
   ecs_service_security_groups = [module.security_groups.logstash]
-  container_port              = var.logstash_container_port
+  container_port              = var.logstah_container_port
   container_port_mappings     = var.logstash_container_port_mappings
   container_cpu               = "1024"
   container_memory            = "2048"
