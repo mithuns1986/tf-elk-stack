@@ -1,25 +1,19 @@
 resource "aws_lb" "main" {
-  name               = "${var.alb_name}-alb"
-  internal           = false
-  load_balancer_type = "application"
-  security_groups    = var.alb_security_groups
-  subnets            = var.subnets
+  name                       = "${var.alb_name}-alb"
+  internal                   = false
+  load_balancer_type         = "application"
+  security_groups            = var.alb_security_groups
+  subnets                    = var.subnets
   enable_deletion_protection = true
   drop_invalid_header_fields = true
-  access_logs {
-    bucket  = var.alb_access_log_bucket
-    prefix  = var.pitstop_name
-    enabled = true
-  }
   tags = {
-    Name          = "${var.alb_name}-alb"
-    Environment   = var.environment
-    Participant    = var.Participant
+    Name        = "${var.alb_name}-alb"
+    Environment = var.environment
   }
 }
 
-resource "aws_alb_target_group" "main" {
-  name        = "${var.alb_name}-tg"
+resource "aws_alb_target_group" "es" {
+  name        = "${var.alb_name}-es-tg"
   port        = 80
   protocol    = "HTTP"
   vpc_id      = var.vpc_id
@@ -31,14 +25,62 @@ resource "aws_alb_target_group" "main" {
     protocol            = "HTTP"
     matcher             = "200"
     timeout             = "3"
-    path                = var.health_check_path
+    path                = "/_cat/health"
     unhealthy_threshold = "2"
   }
 
   tags = {
-    Name          = "${var.alb_name}-alb-tg"
-    Environment   = var.environment
-    Participant    = var.Participant
+    Name        = "${var.alb_name}-es-tg"
+    Environment = var.environment
+  }
+}
+
+## Logstash Target Group
+
+resource "aws_alb_target_group" "logstash" {
+  name        = "${var.alb_name}-logstash-tg"
+  port        = 80
+  protocol    = "HTTP"
+  vpc_id      = var.vpc_id
+  target_type = "ip"
+
+  health_check {
+    healthy_threshold   = "3"
+    interval            = "30"
+    protocol            = "HTTP"
+    matcher             = "200"
+    timeout             = "3"
+    path                = "/"
+    unhealthy_threshold = "2"
+  }
+
+  tags = {
+    Name        = "${var.alb_name}-logstash-tg"
+    Environment = var.environment
+  }
+}
+
+## Kibana Target group
+resource "aws_alb_target_group" "kibana" {
+  name        = "${var.alb_name}-kibana-tg"
+  port        = 80
+  protocol    = "HTTP"
+  vpc_id      = var.vpc_id
+  target_type = "ip"
+
+  health_check {
+    healthy_threshold   = "3"
+    interval            = "30"
+    protocol            = "HTTP"
+    matcher             = "200"
+    timeout             = "3"
+    path                = "/app/health"
+    unhealthy_threshold = "2"
+  }
+
+  tags = {
+    Name        = "${var.alb_name}-kibana-tg"
+    Environment = var.environment
   }
 }
 
@@ -61,21 +103,21 @@ resource "aws_alb_listener" "http" {
 
 # Redirect traffic to target group
 resource "aws_alb_listener" "https" {
-    load_balancer_arn = aws_lb.main.id
-    port              = 443
-    protocol          = "HTTPS"
+  load_balancer_arn = aws_lb.main.id
+  port              = 443
+  protocol          = "HTTPS"
 
-    ssl_policy        = "ELBSecurityPolicy-TLS-1-2-Ext-2018-06"
-    certificate_arn   = var.alb_tls_cert_arn
+  ssl_policy      = "ELBSecurityPolicy-TLS-1-2-Ext-2018-06"
+  certificate_arn = var.alb_tls_cert_arn
 
-    default_action {
-        type = "fixed-response"
-        fixed_response {
-          content_type = "text/plain"
-         message_body = "Welcome to CDI Platform"
-         status_code  = "200"
+  default_action {
+    type = "fixed-response"
+    fixed_response {
+      content_type = "text/plain"
+      message_body = "Welcome to ELK"
+      status_code  = "200"
     }
-    }
+  }
 }
 resource "aws_lb_listener_rule" "main" {
   listener_arn = aws_alb_listener.https.arn
@@ -83,37 +125,32 @@ resource "aws_lb_listener_rule" "main" {
 
   action {
     type             = "forward"
-    target_group_arn = aws_alb_target_group.main.arn
+    target_group_arn = aws_alb_target_group.es.arn
   }
 
   condition {
     host_header {
-      values = ["${var.pitstop_name}.pitstop.sgtradex.io"]
+      values = ["es.${var.doamin_name}"]
     }
   }
 }
-resource "aws_route53_record" "pitstop_dns_record" {
-  name    = "${lower(var.pitstop_name)}"
-  type    = "A"
-  zone_id = var.route53_hosted_zone_id
-
-  alias {
-    evaluate_target_health = true
-    name                   = aws_lb.main.dns_name
-    zone_id                = aws_lb.main.zone_id
-  }
-}
-resource "aws_wafv2_web_acl_association" "web_acl_association_acl" {
-  resource_arn = aws_lb.main.arn
-  web_acl_arn  = var.waf_arn
 }
 
 output "aws_alb_listner_arn" {
   value = aws_alb_listener.https.arn
 }
-output "aws_alb_target_group_arn" {
-  value = aws_alb_target_group.main.arn
+output "es_aws_alb_target_group_arn" {
+  value = aws_alb_target_group.es.arn
 }
+
+output "logstash_aws_alb_target_group_arn" {
+  value = aws_alb_target_group.logstash.arn
+}
+
+output "kibana_aws_alb_target_group_arn" {
+  value = aws_alb_target_group.kibana.arn
+}
+
 output "aws_lb_main_dns_name" {
   value = aws_lb.main.dns_name
 }

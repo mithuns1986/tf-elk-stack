@@ -1,0 +1,9 @@
+environment            = "Prod"
+vpc_id                 = "vpc-024d777bf648d9edb"
+availability_zones     = ["ap-southeast-1a", "ap-southeast-1b"]
+private_subnets        = ["subnet-0189aca4fbbbe5f98", "subnet-02ccae9265069fb30"]
+public_subnets         = ["subnet-0b73326f59947dac8", "subnet-05e44751eaa62e4ca"]
+service_desired_count  = 1
+tsl_certificate_arn    = "arn:aws:acm:ap-southeast-1:006195751431:certificate/82ef7627-f448-4dc5-81e8-0623ed1514b9"
+route53_hosted_zone_id = "Z060289833XOHIDTFD6V9"
+container_image        = "818682305270.dkr.ecr.ap-southeast-1.amazonaws.com/dev-elk"

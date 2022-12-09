@@ -1,5 +1,5 @@
 resource "aws_security_group" "alb" {
-  name   = "${var.name}-sg-alb"
+  name   = "ELK-sg-alb"
   vpc_id = var.vpc_id
 
   ingress {
@@ -11,85 +11,105 @@ resource "aws_security_group" "alb" {
   }
 
   ingress {
-    protocol         = "tcp"
-    from_port        = 443
-    to_port          = 443
-    cidr_blocks      = ["0.0.0.0/0"]
+    protocol    = "tcp"
+    from_port   = 443
+    to_port     = 443
+    cidr_blocks = ["0.0.0.0/0"]
   }
 
   egress {
-    protocol         = "-1"
-    from_port        = 0
-    to_port          = 0
-    cidr_blocks      = ["0.0.0.0/0"]
+    protocol    = "-1"
+    from_port   = 0
+    to_port     = 0
+    cidr_blocks = ["0.0.0.0/0"]
   }
 
   tags = {
-    Name        = "${var.name}-sg-alb"
+    Name        = "ELK-sg-alb"
     Environment = var.environment
-    Participant    = var.Participant
   }
 }
 
-resource "aws_security_group" "ecs_tasks" {
-  name   = "${var.name}-sg-task"
+resource "aws_security_group" "logstash" {
+  name   = "logstash-sg-task"
   vpc_id = var.vpc_id
 
   ingress {
-    protocol         = "tcp"
-    from_port        = var.container_port
-    to_port          = var.container_port
-    security_groups      = ["${aws_security_group.alb.id}"]
+    protocol        = "tcp"
+    from_port       = "5010"
+    to_port         = "5010"
+    security_groups = ["${aws_security_group.alb.id}"]
   }
   ingress {
-    protocol         = "tcp"
-    from_port        = var.sandbox_container_port
-    to_port          = var.sandbox_container_port
-    security_groups      = ["${aws_security_group.alb.id}"]
+    protocol        = "tcp"
+    from_port       = "8080"
+    to_port         = "8080"
+    security_groups = ["${aws_security_group.alb.id}"]
   }
 
   egress {
-    protocol         = "-1"
-    from_port        = 0
-    to_port          = 0
-    cidr_blocks      = ["0.0.0.0/0"]
+    protocol    = "-1"
+    from_port   = 0
+    to_port     = 0
+    cidr_blocks = ["0.0.0.0/0"]
   }
 
   tags = {
-    Name        = "${var.name}-sg-task"
+    Name        = "logstah-sg-task"
     Environment = var.environment
-    Participant    = var.Participant
   }
 }
-resource "aws_security_group" "rds_sg" {
-  name = "${var.name}-rds-sg"
-  vpc_id = "${var.vpc_id}"
-  tags = {
-    Name        = "${var.name}-rds-sg"
-    Environment = var.environment
-    Participant    = var.Participant
-  }
 
-  //allow traffic for TCP 5432
+resource "aws_security_group" "es" {
+  name   = "es-sg-task"
+  vpc_id = var.vpc_id
+
   ingress {
-      from_port = 5432
-      to_port   = 5432
-      protocol  = "tcp"
-      security_groups = ["${aws_security_group.ecs_tasks.id}"]
+    protocol        = "tcp"
+    from_port       = "9200"
+    to_port         = "9200"
+    security_groups = ["${aws_security_group.alb.id}"]
   }
   ingress {
-      from_port = 5432
-      to_port   = 5432
-      protocol  = "tcp"
-      cidr_blocks = ["10.99.0.0/22"]
+    protocol        = "tcp"
+    from_port       = "9300"
+    to_port         = "9300"
+    security_groups = ["${aws_security_group.alb.id}"]
   }
 
-  // outbound internet access
   egress {
-    from_port = 0
-    to_port = 0
-    protocol = "-1"
+    protocol    = "-1"
+    from_port   = 0
+    to_port     = 0
     cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  tags = {
+    Name        = "es-sg-task"
+    Environment = var.environment
+  }
+}
+
+resource "aws_security_group" "kibana" {
+  name   = "kibana-sg-task"
+  vpc_id = var.vpc_id
+
+  ingress {
+    protocol        = "tcp"
+    from_port       = "5601"
+    to_port         = "5601"
+    security_groups = ["${aws_security_group.alb.id}"]
+  }
+  egress {
+    protocol    = "-1"
+    from_port   = 0
+    to_port     = 0
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  tags = {
+    Name        = "kibana-sg-task"
+    Environment = var.environment
   }
 }
 
@@ -97,9 +117,13 @@ output "alb" {
   value = aws_security_group.alb.id
 }
 
-output "ecs_tasks" {
-  value = aws_security_group.ecs_tasks.id
+output "logstash" {
+  value = aws_security_group.logstash.id
 }
-output "rds_sg" {
-  value = aws_security_group.rds_sg.id
+
+output "es" {
+  value = aws_security_group.es.id
+}
+output "kibana" {
+  value = aws_security_group.kibana.id
 }
