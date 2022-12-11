@@ -134,6 +134,7 @@ resource "aws_lb_listener_rule" "main" {
     }
   }
 }
+
 resource "aws_lb_listener_rule" "kibana" {
   listener_arn = aws_alb_listener.https.arn
   priority     = "20"
@@ -145,7 +146,7 @@ resource "aws_lb_listener_rule" "kibana" {
 
   condition {
     host_header {
-      values = ["kibana"]
+      values = ["kibana.${var.domain_name}"]
     }
   }
 }
@@ -160,7 +161,7 @@ resource "aws_lb_listener_rule" "logstash" {
 
   condition {
     host_header {
-      values = ["logstash"]
+      values = ["logstash.${var.domain_name}"]
     }
   }
 }
