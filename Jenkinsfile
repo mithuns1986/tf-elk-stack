@@ -10,7 +10,7 @@ pipeline {
     stage('TF Plan') {
        steps {
          //withAWS(roleAccount:'818682305270', role:'jenkins-cross-account-role-ss-sgtradex') {
-           withAWS(credentials: "dev-cdi-aws", region: 'ap-southeast-1'){
+           withAWS(credentials: "${params.Environment}-Pitstop-AWS-Key", region: 'ap-southeast-1'){
          script {
            sh 'rm -rf .terraform'
            sh "terraform init -upgrade -get=true -input=false -no-color -backend-config='bucket=sgtradex-elk-stack-bucket' -backend-config='key=${params.Environment}.tfstate'"
@@ -33,7 +33,7 @@ pipeline {
      stage('TF Apply') {
       steps {
         //withAWS(roleAccount:'818682305270', role:'jenkins-cross-account-role-ss-sgtradex') {
-          withAWS(credentials: "dev-cdi-aws", region: 'ap-southeast-1'){
+          withAWS(credentials: "${params.Environment}-Pitstop-AWS-Key", region: 'ap-southeast-1'){
         script {
           sh "terraform apply -no-color -input=false '${workspace}/plan'"
         }
