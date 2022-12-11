@@ -1,4 +1,4 @@
-environment            = "PROD"
+environment            = "Prod"
 vpc_id                 = "vpc-030733224caf4db0d"
 availability_zones     = ["ap-southeast-1a", "ap-southeast-1b"]
 private_subnets        = ["subnet-0cc7ce043d54d5d2c", "subnet-06c196150acab22d9"]
