@@ -1,5 +1,5 @@
 resource "aws_lb" "main" {
-  name                       = "${var.alb_name}-alb"
+  name                       = "${var.alb_name}-elk-alb"
   internal                   = false
   load_balancer_type         = "application"
   security_groups            = var.alb_security_groups
