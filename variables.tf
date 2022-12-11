@@ -115,7 +115,7 @@ variable "logstah_container_port" {
   default = "8080"
 }
 variable "domain_name" {
-  default = "elk.test.afa-cdi.com"
+  default = "sgtradex.io"
 }
 variable "log_group" {
   default = ""
