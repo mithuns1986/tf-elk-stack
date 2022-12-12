@@ -8,4 +8,4 @@ tsl_certificate_arn    = "arn:aws:acm:ap-southeast-1:514380290403:certificate/5d
 route53_hosted_zone_id = "Z0613739GJSDG0I0DOHQ"
 container_image        = "514380290403.dkr.ecr.ap-southeast-1.amazonaws.com/prod-elk"
 log_group              = "Prod-elk"
-domain_name            = "sgtradex.io"
+domain_name            = "pitstop.sgtradex.io"
