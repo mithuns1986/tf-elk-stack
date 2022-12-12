@@ -94,7 +94,7 @@ module "kibana" {
     },
     {
       name  = "SERVER_PUBLICBASEURL",
-      value = "https://kibana.sgtradex.io"
+      value = "https://kibana.pitstop.sgtradex.io"
     }
   ]
   container_image = var.container_image
@@ -118,7 +118,7 @@ module "logstash" {
   log_group                   = var.log_group
   container_environment = [
     { name  = "LOGSTASH_ELASTICSEARCH_HOST	",
-      value = "http://elk.sgtradex.io:9200"
+      value = "http://es.pitstop.sgtradex.io:9200"
     },
     {
       name  = "LOGSTASH_INTERNAL_PASSWORD",
