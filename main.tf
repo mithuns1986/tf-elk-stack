@@ -94,7 +94,7 @@ module "kibana" {
     },
     {
       name  = "SERVER_PUBLICBASEURL",
-      value = "https://kibana.dev.afa-cdi.com"
+      value = "https://kibana.sgtradex.io"
     }
   ]
   container_image = var.container_image
