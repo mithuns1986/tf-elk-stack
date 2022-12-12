@@ -45,7 +45,7 @@ module "es" {
   task_execution_role_arn     = module.iam_policy.task_execution_role_arn
   ecs_task_role_arn           = module.iam_policy.ecs_task_role_arn
   ecs_service_security_groups = [module.security_groups.es]
-  container_port              = var.es_container_port
+  container_port              = "9200"
   container_port_mappings     = var.es_container_port_mappings
   container_cpu               = "1024"
   container_memory            = "2048"
@@ -81,7 +81,7 @@ module "kibana" {
   task_execution_role_arn     = module.iam_policy.task_execution_role_arn
   ecs_task_role_arn           = module.iam_policy.ecs_task_role_arn
   ecs_service_security_groups = [module.security_groups.kibana]
-  container_port              = var.kibana_container_port
+  container_port              = "5601"
   container_port_mappings     = var.kibana_container_port_mappings
   container_cpu               = "1024"
   container_memory            = "2048"
@@ -109,7 +109,7 @@ module "logstash" {
   task_execution_role_arn     = module.iam_policy.task_execution_role_arn
   ecs_task_role_arn           = module.iam_policy.ecs_task_role_arn
   ecs_service_security_groups = [module.security_groups.logstash]
-  container_port              = var.logstah_container_port
+  container_port              = "8080"
   container_port_mappings     = var.logstash_container_port_mappings
   container_cpu               = "1024"
   container_memory            = "2048"
